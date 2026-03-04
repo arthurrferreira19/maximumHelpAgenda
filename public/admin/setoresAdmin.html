@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Maximum Help • Setores</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/style.css" />
+</head>
+<body>
+  <div class="admin-shell">
+    <aside class="sidebar" id="sidebar"></aside>
+
+    <section class="main">
+      <div class="topbar fade-in">
+        <div class="d-flex align-items-center gap-2">
+          <button class="sidebar-toggle" id="btnSidebarToggle" type="button">
+            <i data-lucide="panel-left" style="width:18px;height:18px;"></i>
+            Menu
+          </button>
+          <h1 id="moduleTitle">Setores</h1>
+          <span class="badge-accent">
+            <i data-lucide="layers" style="width:16px;height:16px;"></i>
+            Gerenciamento
+          </span>
+        </div>
+
+        <div class="d-flex align-items-center gap-2">
+          <button class="btn btn-outline-secondary" id="btnRefresh" style="border-radius:14px;">
+            <i data-lucide="refresh-cw" style="width:18px;height:18px;"></i>
+          </button>
+
+          <button class="btn btn-accent" data-bs-toggle="modal" data-bs-target="#modalSector">
+            <i data-lucide="plus" style="width:18px;height:18px;"></i>
+            Criar setor
+          </button>
+        </div>
+      </div>
+
+      <div class="content">
+        <div id="pageAlert"></div>
+
+        <div class="soft-card-sm p-3 fade-in">
+          <div class="row g-2 align-items-end">
+            <div class="col-12 col-md-5">
+              <label class="form-label" style="color:var(--muted); font-size:12px;">Buscar por nome</label>
+              <div class="position-relative">
+                <i data-lucide="search" class="input-icon"></i>
+                <input id="search" class="form-control with-icon" placeholder="Ex.: Financeiro, TI, RH..." />
+              </div>
+            </div>
+
+            <div class="col-12 col-md-3">
+              <label class="form-label" style="color:var(--muted); font-size:12px;">Status</label>
+              <select id="filterAtivo" class="form-select" style="border-radius:14px; min-height:46px; border:1px solid var(--border);">
+                <option value="">Todos</option>
+                <option value="true">Ativos</option>
+                <option value="false">Inativos</option>
+              </select>
+            </div>
+
+            <div class="col-12 col-md-4 d-flex gap-2">
+              <button class="btn btn-outline-secondary w-100" id="btnClear" style="border-radius:14px; min-height:46px;">
+                Limpar
+              </button>
+              <button class="btn btn-accent w-100" id="btnApply" style="min-height:46px;">
+                Aplicar
+              </button>
+            </div>
+          </div>
+
+          <hr style="border-color: var(--border);" />
+
+          <div class="table-responsive">
+            <table class="table align-middle mb-0">
+              <thead>
+                <tr style="color:var(--muted); font-size:12px;">
+                  <th>Nome</th>
+                  <th>Responsável</th>
+                  <th>Status</th>
+                  <th class="text-end">Ações</th>
+                </tr>
+              </thead>
+              <tbody id="tblBody">
+                <tr><td colspan="4" style="color:var(--muted);">Carregando...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- MODAL CRIAR/EDITAR -->
+  <div class="modal fade" id="modalSector" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content soft-card">
+        <div class="modal-header border-0">
+          <div>
+            <h5 class="modal-title" id="modalTitle" style="font-weight:900;">Criar setor</h5>
+            <div style="color:var(--muted); font-size:12px;">Defina o responsável e o status do setor.</div>
+          </div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+        </div>
+
+        <div class="modal-body pt-0">
+          <div id="modalAlert"></div>
+
+          <input type="hidden" id="sectorId" />
+
+          <div class="mb-3">
+            <label class="form-label" style="color:var(--muted); font-size:12px;">Nome do setor</label>
+            <div class="position-relative">
+              <i data-lucide="tag" class="input-icon"></i>
+              <input id="nome" class="form-control with-icon" placeholder="Ex.: Financeiro" />
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label" style="color:var(--muted); font-size:12px;">Responsável</label>
+            <select id="responsavel" class="form-select" style="border-radius:14px; min-height:46px; border:1px solid var(--border);">
+              <option value="">Carregando responsáveis...</option>
+            </select>
+            <div style="color:var(--muted); font-size:12px;" class="mt-2">
+              Apenas usuários com role <strong>RESPONSAVEL</strong> ou <strong>ADMIN</strong> aparecem aqui.
+            </div>
+          </div>
+
+          <div class="mb-2">
+            <label class="form-label" style="color:var(--muted); font-size:12px;">Status</label>
+            <select id="ativo" class="form-select" style="border-radius:14px; min-height:46px; border:1px solid var(--border);">
+              <option value="true">Ativo</option>
+              <option value="false">Inativo</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="modal-footer border-0">
+          <button class="btn btn-outline-secondary" data-bs-dismiss="modal" style="border-radius:14px;">Cancelar</button>
+          <button class="btn btn-accent" id="btnSave" style="border-radius:14px;">
+            <span id="btnSaveText">Salvar</span>
+            <span id="btnSaveSpin" class="spinner-border spinner-border-sm ms-2 d-none" role="status"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL CONFIRMAR EXCLUSÃO -->
+  <div class="modal fade" id="modalDelete" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content soft-card">
+        <div class="modal-header border-0">
+          <h5 class="modal-title" style="font-weight:900;">Excluir setor</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+        </div>
+        <div class="modal-body pt-0" style="color:var(--muted);">
+          Tem certeza que deseja excluir o setor <strong id="delName"></strong>?
+          <div class="mt-2" style="font-size:12px;">
+            Essa ação não poderá ser desfeita.
+          </div>
+          <input type="hidden" id="delId" />
+        </div>
+        <div class="modal-footer border-0">
+          <button class="btn btn-outline-secondary" data-bs-dismiss="modal" style="border-radius:14px;">Cancelar</button>
+          <button class="btn btn-danger" id="btnConfirmDelete" style="border-radius:14px;">
+            Excluir
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script src="../assets/js/api.js"></script>
+  <script src="../assets/js/adminCommon.js"></script>
+  <script src="../assets/js/setoresAdmin.js"></script>
+  <script src="../assets/js/partials.js"></script>
+
+  <script>lucide.createIcons();</script>
+</body>
+</html>

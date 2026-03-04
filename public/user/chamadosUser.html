@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Maximum Help • Chamados</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/style.css" />
+</head>
+
+<body>
+  <div class="admin-shell">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar"></aside>
+
+    <!-- Main -->
+    <section class="main">
+      <!-- Topbar -->
+      <div class="topbar fade-in">
+        <div class="d-flex align-items-center gap-2">
+          <button class="sidebar-toggle" id="btnSidebarToggle" type="button" aria-label="Abrir menu">
+            <i data-lucide="menu" style="width:18px;height:18px;"></i>
+          </button>
+          <div class="topbar-title" id="moduleTitle">Chamados</div>
+        </div>
+
+        <div class="topbar-actions d-flex align-items-center gap-2">
+          <button class="btn btn-outline-secondary btn-sm" id="btnTour" type="button" title="Tour guiado">
+            <i data-lucide="help-circle" style="width:16px;height:16px;"></i>
+            Como funciona
+          </button>
+
+          <button class="btn btn-outline-secondary btn-sm" id="btnToggleView" type="button" title="Alternar visão">
+            <i data-lucide="columns-3" style="width:16px;height:16px;"></i>
+            Kanban
+          </button>
+
+          <button class="btn btn-outline-secondary btn-sm" id="btnRefresh" type="button">
+            <i data-lucide="refresh-cw" style="width:16px;height:16px;"></i>
+            Atualizar
+          </button>
+
+          <button class="btn btn-outline-danger btn-sm" id="btnLogoutTop" type="button">
+            <i data-lucide="log-out" style="width:16px;height:16px;"></i>
+            Sair
+          </button>
+        </div>
+      </div>
+
+      <!-- Content -->
+      <div class="container-fluid py-4">
+        <div id="pageAlert" class="mb-3 d-none"></div>
+
+        <div class="d-flex flex-wrap gap-2 justify-content-between align-items-center mb-3">
+          <div class="d-flex flex-wrap gap-2 align-items-center" id="tourFilters">
+            <!-- NOVO: scope mine/sector -->
+            <select class="form-select form-select-sm" id="scopeFilter" style="width: 210px;">
+              <option value="mine">Somente meus</option>
+              <option value="sector">Meu setor</option>
+            </select>
+
+            <div class="input-group input-group-sm" style="width: 320px;">
+              <span class="input-group-text">
+                <i data-lucide="search" style="width:16px;height:16px;"></i>
+              </span>
+              <input class="form-control" id="q" placeholder="Buscar por título, descrição, solicitante..." />
+            </div>
+
+            <select class="form-select form-select-sm" id="statusFilter" style="width: 220px;">
+              <option value="">Status (todos)</option>
+            </select>
+
+            <select class="form-select form-select-sm" id="urgFilter" style="width: 190px;">
+              <option value="">Urgência (todas)</option>
+              <option value="true">Somente urgentes</option>
+              <option value="false">Somente não urgentes</option>
+            </select>
+          </div>
+
+          <!-- Botão premium -->
+          <button class="btn btn-new-ticket" id="btnOpenCreate" type="button">
+            <span class="btn-new-ticket-ico">
+              <i data-lucide="plus" style="width:16px;height:16px;"></i>
+            </span>
+            <span class="btn-new-ticket-txt">Novo chamado</span>
+            <span class="btn-new-ticket-shine" aria-hidden="true"></span>
+          </button>
+        </div>
+
+        <!-- LISTA -->
+        <div id="listView" class="fade-in">
+          <div id="ticketsEmpty" class="empty-state d-none">
+            <div class="empty-icon"><i data-lucide="inbox" style="width:20px;height:20px;"></i></div>
+            <div class="empty-title">Nenhum chamado encontrado</div>
+            <div class="empty-sub">Crie um chamado ou ajuste os filtros.</div>
+          </div>
+
+          <div id="ticketsGrid" class="tickets-grid"></div>
+        </div>
+
+        <!-- KANBAN -->
+        <div id="kanbanView" class="fade-in d-none">
+          <div id="kanbanBoard" class="mh-kanban"></div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Modal: Criar/Editar -->
+  <div class="modal fade" id="modalTicket" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content" id="ticketModalContent">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalTicketTitle">Novo chamado</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+        </div>
+
+        <div class="modal-body">
+          <div id="createErr" class="text-danger small mb-2 d-none"></div>
+
+          <div id="urgentAlert" class="alert alert-danger d-none" style="border-radius:14px;">
+            <div class="d-flex align-items-start gap-2">
+              <i data-lucide="alert-triangle" style="width:18px;height:18px;"></i>
+              <div>
+                <div style="font-weight:900;">Chamado marcado como URGENTE</div>
+                <div class="small">Isso prioriza o atendimento. Verifique se realmente precisa.</div>
+              </div>
+            </div>
+          </div>
+
+          <form id="ticketForm">
+            <div class="row g-3">
+              <div class="col-12" id="tourTitulo">
+                <label class="form-label">Título</label>
+                <input id="fTitulo" class="form-control" maxlength="120" placeholder="Ex: Erro no sistema / Solicitação..." />
+              </div>
+
+              <div class="col-12" id="tourSolicitante">
+                <label class="form-label">Solicitante</label>
+                <input id="fSolicitanteAberto" class="form-control" maxlength="80" placeholder="Ex: Arthur Ferreira" autocomplete="off" />
+                <div class="form-text">Por padrão vem quem abriu, mas você pode apagar e digitar outro nome.</div>
+              </div>
+
+              <div class="col-12" id="tourDescricao">
+                <label class="form-label">Descrição</label>
+                <textarea id="fDescricao" class="form-control" rows="4" placeholder="Descreva com detalhes..."></textarea>
+              </div>
+
+              <div class="col-md-6" id="tourStatus">
+                <label class="form-label">Status</label>
+                <select id="fStatus" class="form-select">
+                  <option value="Pendente">Pendente</option>
+                  <option value="Em Andamento">Em Andamento</option>
+                  <option value="Aguardando Solicitante">Aguardando Solicitante</option>
+                  <option value="Aguardando Fornecedor">Aguardando Fornecedor</option>
+                  <option value="Concluído">Concluído</option>
+                </select>
+              </div>
+
+              <div class="col-md-3" id="tourUrgente">
+                <label class="form-label d-flex align-items-center justify-content-between">
+                  <span>Urgente</span>
+                  <span id="urgentPill" class="badge text-bg-secondary">Não</span>
+                </label>
+
+                <div class="mh-toggle">
+                  <input class="mh-toggle-input" type="checkbox" id="fUrgenteToggle">
+                  <label class="mh-toggle-label" for="fUrgenteToggle">
+                    <span class="mh-toggle-knob"></span>
+                  </label>
+                </div>
+
+                <select id="fUrgente" class="d-none">
+                  <option value="false">Não</option>
+                  <option value="true">Sim</option>
+                </select>
+              </div>
+
+              <div class="col-md-3" id="tourPrazo">
+                <label class="form-label">Prazo estimado (dias)</label>
+                <input id="fPrazoDias" type="number" class="form-control" min="0" step="1" placeholder="Ex: 3" />
+              </div>
+
+              <div class="col-12" id="tourAnexos">
+                <label class="form-label">Anexos</label>
+                <input id="fFiles" class="form-control" type="file" multiple />
+                <div class="form-text">Selecione os anexos antes de salvar (você verá os nomes abaixo).</div>
+                <div id="selectedFiles" class="mt-2 small text-muted"></div>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <div class="modal-footer" id="tourSalvar">
+          <button class="btn btn-outline-secondary" data-bs-dismiss="modal" type="button">Cancelar</button>
+          <button class="btn btn-marsala" id="btnSaveTicket" type="button">Salvar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Detalhes -->
+  <div class="modal fade" id="modalDetails" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Detalhes do chamado</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+        </div>
+        <div class="modal-body" id="detailsBody"></div>
+        <div class="modal-footer">
+          <button class="btn btn-outline-secondary" data-bs-dismiss="modal" type="button">Fechar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script src="/assets/js/api.js"></script>
+  <script src="/assets/js/userCommon.js"></script>
+  <script src="/assets/js/chamadosUser.js"></script>
+  <script src="/assets/js/partials.js"></script>
+</body>
+</html>

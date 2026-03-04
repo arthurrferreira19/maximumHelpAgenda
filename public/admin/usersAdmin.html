@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Maximum Help • Usuários</title>
+  <link rel="stylesheet" href="/assets/css/style.css" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+  <div class="admin-shell">
+    <!-- Mobile topbar -->
+    <header class="topbar">
+      <div class="topbar-inner">
+        <button class="btn-icon" id="btnSidebarOpen" type="button" aria-label="Abrir menu">
+          <i data-lucide="menu"></i>
+        </button>
+        <div style="font-weight:700;color:var(--wine)">Usuários</div>
+        <div style="width:44px"></div>
+      </div>
+    </header>
+
+    <!-- Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Sidebar (injetada por JS) -->
+    <aside class="sidebar" id="sidebar"></aside>
+
+    <!-- Content -->
+    <main class="main-content">
+      <div class="page-card">
+        <h1 class="h1">Usuários</h1>
+        <p class="p">Página de usuários (exemplo). Sidebar igual em todas as páginas.</p>
+      </div>
+    </main>
+  </div>
+
+  <script src="/assets/js/sidebar.js"></script>
+</body>
+</html>

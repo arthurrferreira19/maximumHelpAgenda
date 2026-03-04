@@ -1,0 +1,999 @@
+:root {
+    --bg: #f6f7fb;
+    --card: rgba(255, 255, 255, .78);
+    --stroke: rgba(15, 23, 42, .10);
+    --text: #0f172a;
+    --muted: rgba(15, 23, 42, .65);
+
+    --wine: #7a1f3d;
+    /* marsala/wine */
+    --wine-2: #a12b56;
+    /* highlight */
+    --accent: var(--wine); /* marsala */
+    /* azul suave para detalhes secundários */
+    --success: #16a34a;
+
+    --shadow: 0 18px 55px rgba(15, 23, 42, .10);
+    --shadow2: 0 10px 25px rgba(15, 23, 42, .08);
+    --radius: 22px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+    color: var(--text);
+    background: radial-gradient(1200px 800px at 12% 18%, rgba(122, 31, 61, .14), transparent 55%),
+        radial-gradient(900px 700px at 92% 12%, rgba(122, 31, 61, .10), transparent 45%),
+        radial-gradient(900px 700px at 72% 82%, rgba(161, 43, 86, .08), transparent 55%),
+        var(--bg);
+    overflow-x: hidden;
+}
+
+.fade-up {
+    animation: fadeUp .65s ease both;
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.glass {
+    background: var(--card);
+    border: 1px solid var(--stroke);
+    box-shadow: var(--shadow);
+    border-radius: var(--radius);
+    backdrop-filter: blur(10px);
+}
+
+.brand-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: .55rem;
+    padding: .55rem .85rem;
+    border-radius: 999px;
+    background: rgba(122, 31, 61, .10);
+    border: 1px solid rgba(122, 31, 61, .18);
+}
+
+.brand-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 99px;
+    background: linear-gradient(135deg, var(--wine), var(--wine-2));
+    box-shadow: 0 0 0 4px rgba(122, 31, 61, .10);
+}
+
+.mh-title {
+    font-weight: 800;
+    letter-spacing: -0.02em;
+}
+
+.mh-sub {
+    color: var(--muted);
+}
+
+.btn-wine {
+    background: linear-gradient(135deg, var(--wine), var(--wine-2));
+    border: none;
+    box-shadow: 0 12px 25px rgba(122, 31, 61, .22);
+}
+
+.btn-wine:hover {
+    filter: brightness(1.03);
+    transform: translateY(-1px);
+}
+
+.btn-wine:active {
+    transform: translateY(0);
+}
+
+/* ---------- Auth (Login) ---------- */
+.auth-shell {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: 26px 16px;
+    position: relative;
+    z-index: 1;
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 520px;
+    padding: 22px 22px 18px;
+}
+
+.auth-head {
+    text-align: left;
+}
+
+.auth-title {
+    margin: 0;
+    font-weight: 900;
+    letter-spacing: -0.03em;
+}
+
+.auth-sub {
+    color: var(--muted);
+}
+
+.input-icon {
+    position: relative;
+}
+
+.input-icon > svg,
+.input-icon > i {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: .75;
+}
+
+.input-icon .form-control {
+    padding-left: 44px !important;
+}
+
+.btn-ghost {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: 0;
+    background: transparent;
+    padding: 6px 8px;
+    border-radius: 12px;
+}
+
+.btn-ghost:hover {
+    background: rgba(15, 23, 42, .06);
+}
+
+.link-muted {
+    color: rgba(15, 23, 42, .60);
+    text-decoration: none;
+}
+
+.link-muted:hover {
+    color: var(--wine);
+}
+
+.icon-pill {
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+    display: grid;
+    place-items: center;
+    background: rgba(122, 31, 61, .09);
+    border: 1px solid rgba(122, 31, 61, .16);
+}
+
+.form-control,
+.form-select {
+    border-radius: 14px !important;
+    border: 1px solid rgba(15, 23, 42, .14) !important;
+    background: rgba(255, 255, 255, .9) !important;
+}
+
+.form-control:focus {
+    box-shadow: 0 0 0 .25rem rgba(122, 31, 61, .18) !important;
+    border-color: rgba(122, 31, 61, .35) !important;
+}
+
+.input-group-text {
+    border-radius: 14px !important;
+    border: 1px solid rgba(15, 23, 42, .14) !important;
+    background: rgba(248, 250, 252, .95) !important;
+}
+
+.floating-icons {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: .80;
+}
+
+.float-ic {
+    position: absolute;
+    width: 56px;
+    height: 56px;
+    border-radius: 18px;
+    display: grid;
+    place-items: center;
+    background: rgba(255, 255, 255, .65);
+    border: 1px solid rgba(15, 23, 42, .10);
+    box-shadow: var(--shadow2);
+    backdrop-filter: blur(8px);
+    animation: floaty 6.2s ease-in-out infinite;
+}
+
+.float-ic svg {
+    opacity: .86;
+}
+
+@keyframes floaty {
+
+    0%,
+    100% {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    50% {
+        transform: translateY(-10px) rotate(2deg);
+    }
+}
+
+.float-1 {
+    top: 10%;
+    left: 7%;
+    animation-delay: .2s;
+}
+
+.float-2 {
+    top: 18%;
+    right: 10%;
+    animation-delay: .9s;
+}
+
+.float-3 {
+    bottom: 18%;
+    left: 10%;
+    animation-delay: 1.3s;
+}
+
+.float-4 {
+    bottom: 12%;
+    right: 12%;
+    animation-delay: 2.0s;
+}
+
+.small-link {
+    color: rgba(15, 23, 42, .72);
+    text-decoration: none;
+}
+
+.small-link:hover {
+    color: var(--wine);
+}
+
+.hr-soft {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(15, 23, 42, .12), transparent);
+    border: none;
+}
+
+.alert-soft {
+    border-radius: 16px;
+    border: 1px solid rgba(122, 31, 61, .20);
+    background: rgba(122, 31, 61, .08);
+    color: rgba(15, 23, 42, .92);
+}
+
+@media (max-width: 991px) {
+    .float-ic {
+        display: none;
+    }
+}
+
+/* ---------- Layout Admin (Sidebar fixa) ---------- */
+.admin-shell {
+    min-height: 100vh;
+    display: flex;
+}
+
+.sidebar {
+    width: 280px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    padding: 18px 14px;
+    background: rgba(255, 255, 255, .78);
+    border-right: 1px solid rgba(15, 23, 42, .10);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 16px 40px rgba(15, 23, 42, .06);
+    z-index: 1201;
+}
+
+.sidebar-brand {
+    padding: 14px 12px;
+    border-radius: 18px;
+    background: rgba(122, 31, 61, .08);
+    border: 1px solid rgba(122, 31, 61, .14);
+}
+
+.sidebar-title {
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    margin: 0;
+}
+
+.sidebar-sub {
+    color: rgba(15, 23, 42, .65);
+    font-size: .9rem;
+    margin: 0;
+}
+
+.nav-group-title {
+    font-size: .78rem;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: rgba(15, 23, 42, .55);
+    margin: 14px 10px 8px;
+}
+
+.side-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 14px;
+    color: rgba(15, 23, 42, .82);
+    text-decoration: none;
+    border: 1px solid transparent;
+    transition: .18s ease;
+}
+
+.side-link:hover {
+    background: rgba(122, 31, 61, .08);
+    border-color: rgba(122, 31, 61, .16);
+    color: rgba(15, 23, 42, .92);
+}
+
+.side-link.active {
+    background: linear-gradient(135deg, rgba(122, 31, 61, .16), rgba(161, 43, 86, .10));
+    border-color: rgba(122, 31, 61, .22);
+}
+
+.side-footer {
+    position: absolute;
+    left: 14px;
+    right: 14px;
+    bottom: 14px;
+}
+
+/* bloco do usuário na sidebar (admin e user) */
+.sidebar-user {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 12px;
+    margin-top: 12px;
+    border-radius: 18px;
+    background: rgba(248, 250, 252, .75);
+    border: 1px solid rgba(15, 23, 42, .10);
+}
+
+.avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+    display: grid;
+    place-items: center;
+    background: linear-gradient(135deg, rgba(122, 31, 61, .18), rgba(161, 43, 86, .10));
+    border: 1px solid rgba(122, 31, 61, .20);
+    font-weight: 900;
+}
+
+.sidebar-section {
+    margin-top: 12px;
+}
+
+.sidebar-label {
+    font-size: .78rem;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: rgba(15, 23, 42, .55);
+    margin: 14px 10px 8px;
+}
+
+.badge-wine {
+    background: rgba(122, 31, 61, .12) !important;
+    color: rgba(15, 23, 42, .92) !important;
+    border: 1px solid rgba(122, 31, 61, .20) !important;
+    border-radius: 999px;
+    padding: 6px 10px;
+    font-weight: 800;
+}
+
+.main {
+    margin-left: 280px;
+    width: calc(100% - 280px);
+    padding: 22px;
+}
+
+@media (max-width: 991px) {
+    /* Importante:
+      A agenda agora usa o mesmo comportamento das outras telas:
+      - Sidebar OFFCANVAS no mobile (position: fixed + .open)
+      - Overlay/backdrop
+      Essas regras ficam em style.css. Aqui evitamos sobrescrever.
+    */
+    .main {
+        margin-left: 0;
+        width: 100%;
+        padding: 14px;
+    }
+}
+
+/* Mobile topbar (user agenda) */
+.mobile-topbar {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    padding: 10px 12px;
+    margin: -6px -6px 12px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, .78);
+    border: 1px solid rgba(15, 23, 42, .10);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 10px 24px rgba(15, 23, 42, .06);
+}
+
+.pill-brand {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 10px;
+    border-radius: 999px;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    background: rgba(122, 31, 61, .10);
+    border: 1px solid rgba(122, 31, 61, .16);
+}
+
+/* ---------- Agenda Grid (Week) ---------- */
+.calendar-shell {
+    display: grid;
+    grid-template-columns: 70px 1fr;
+    border: 1px solid rgba(15, 23, 42, .10);
+    border-radius: 18px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, .65);
+}
+
+.cal-header {
+    display: grid;
+    grid-template-columns: 70px 1fr;
+    border: 1px solid rgba(15, 23, 42, .10);
+    border-radius: 18px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, .65);
+    margin-bottom: 12px;
+}
+
+.cal-header .left {
+    padding: 10px 10px;
+    border-right: 1px solid rgba(15, 23, 42, .10);
+    color: rgba(15, 23, 42, .65);
+    font-size: .85rem;
+}
+
+.cal-header .days {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+}
+
+.cal-day-head {
+    padding: 10px 12px;
+    border-right: 1px solid rgba(15, 23, 42, .08);
+}
+
+.cal-day-head:last-child {
+    border-right: 0;
+}
+
+.cal-day-head .dow {
+    font-size: .78rem;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: rgba(15, 23, 42, .55);
+}
+
+.cal-day-head .date {
+    font-weight: 800;
+    letter-spacing: -.02em;
+}
+
+.time-col {
+    border-right: 1px solid rgba(15, 23, 42, .10);
+    background: rgba(248, 250, 252, .75);
+}
+
+.time-slot {
+    height: 48px;
+    /* 1 hora */
+    border-top: 1px solid rgba(15, 23, 42, .08);
+    padding: 6px 10px;
+    color: rgba(15, 23, 42, .55);
+    font-size: .80rem;
+}
+
+.time-slot:first-child {
+    border-top: 0;
+}
+
+.days-grid {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+}
+
+.day-col {
+    position: relative;
+    padding: 0 8px;
+    border-right: 1px solid rgba(15, 23, 42, .08);
+}
+
+.day-col:last-child {
+    border-right: 0;
+}
+
+.hour-row {
+    height: 48px;
+    border-top: 1px solid rgba(15, 23, 42, .08);
+}
+
+.hour-row:first-child {
+    border-top: 0;
+}
+
+.event-card {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0;
+    border-radius: 14px;
+    padding: 10px 10px;
+    border: 1px solid rgba(122, 31, 61, .22);
+    background: linear-gradient(135deg, rgba(122, 31, 61, .16), rgba(161, 43, 86, .10));
+    box-shadow: 0 12px 26px rgba(15, 23, 42, .10);
+    overflow: hidden;
+    cursor: pointer;
+    transition: .18s ease;
+}
+
+.event-card:hover {
+    transform: translateY(-1px);
+}
+
+.event-title {
+    font-weight: 800;
+    font-size: .92rem;
+    line-height: 1.15;
+}
+
+.event-time {
+    margin-top: 4px;
+    font-size: .78rem;
+    color: rgba(15, 23, 42, .70);
+}
+
+.event-meta {
+    margin-top: 6px;
+    font-size: .78rem;
+    color: rgba(15, 23, 42, .65);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+@media (max-width: 991px) {
+
+    /* No mobile, a agenda vira 1 coluna (sem scroll lateral) */
+    .cal-header .days,
+    .days-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* mobile: nunca gerar scroll lateral */
+@media (max-width: 575px) {
+    html, body {
+        overflow-x: hidden;
+    }
+    .admin-shell, .main {
+        overflow-x: hidden;
+    }
+}
+
+/* Bottom nav (mobile) */
+.mobile-bottomnav {
+    position: sticky;
+    bottom: 0;
+    z-index: 25;
+    margin: 12px -6px -6px;
+    padding: 10px 10px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, .82);
+    border: 1px solid rgba(15, 23, 42, .10);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 -10px 24px rgba(15, 23, 42, .06);
+}
+
+.mobile-bottomnav .navbtn {
+    flex: 1;
+    border: 1px solid rgba(15, 23, 42, .10);
+    background: rgba(248, 250, 252, .70);
+    border-radius: 14px;
+    padding: 10px 8px;
+    font-weight: 800;
+    font-size: .85rem;
+}
+
+.mobile-bottomnav .navbtn.active {
+    background: rgba(122, 31, 61, .14);
+    border-color: rgba(122, 31, 61, .22);
+}
+
+/* ---------- View Switch ---------- */
+.view-pill {
+    border: 1px solid rgba(15, 23, 42, .12);
+    border-radius: 999px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, .7);
+}
+
+.view-pill .btn {
+    border: 0;
+    border-radius: 0;
+}
+
+.view-pill .btn.active {
+    background: rgba(122, 31, 61, .14) !important;
+    color: rgba(15, 23, 42, .92) !important;
+}
+
+/* ---------- Month Grid ---------- */
+.month-grid{
+  border:1px solid rgba(15,23,42,.10);
+  border-radius:18px;
+  background:rgba(255,255,255,.65);
+  /* Mantém 7 colunas sempre. Em telas muito estreitas, permite rolagem horizontal
+     (sem “sumir” dias). */
+  overflow-x:auto;
+  overflow-y:visible;
+}
+
+.month-head{
+  display:grid;
+  grid-template-columns:repeat(var(--month-cols, 7), minmax(110px, 1fr));
+  min-width: calc(var(--month-cols, 7) * 120px);
+  background:rgba(248,250,252,.75);
+  border-bottom:1px solid rgba(15,23,42,.10);
+}
+
+.month-head div{
+  padding:10px 12px;
+  font-size:.78rem;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  color:rgba(15,23,42,.55);
+  border-right:1px solid rgba(15,23,42,.08);
+}
+
+.month-head div:last-child{border-right:0;}
+
+.month-body{
+  display:grid;
+  grid-template-columns:repeat(var(--month-cols, 7), minmax(110px, 1fr));
+  min-width: calc(var(--month-cols, 7) * 120px);
+  grid-auto-rows:minmax(120px, auto); /* garante 6 linhas completas */
+  gap:1px;
+  background:rgba(15,23,42,.08);
+}
+
+.month-cell{
+  background:rgba(255,255,255,.65);
+  min-height:120px;
+  padding:10px 10px 12px;
+  position:relative;
+  display:flex;
+  flex-direction:column;
+}
+
+.month-cell.muted{background:rgba(255,255,255,.40);}
+.month-cell:hover{background:rgba(255,255,255,.82);}
+
+.month-day{
+  font-weight:800;
+  font-size:.92rem;
+  color:rgba(15,23,42,.85);
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:30px;
+  height:30px;
+  border-radius:999px;
+}
+
+.month-cell.muted .month-day{color:rgba(15,23,42,.40);}
+
+.month-events{
+  margin-top:8px;
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  min-width:0;
+  flex:1;
+}
+
+/* Indicadores compactos (bolinhas/quadradinhos) para o mês */
+.month-markers{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;min-height:14px;align-content:flex-start;}
+.month-marker{width:10px;height:10px;border-radius:999px;display:inline-block;box-shadow:0 0 0 1px rgba(15,23,42,.10);}
+.month-marker.square{border-radius:6px;}
+.month-count{font-size:.72rem;font-weight:800;color:rgba(15,23,42,.65);padding:0 6px;border-radius:999px;background:rgba(15,23,42,.06);}
+
+.month-ev{
+  border-radius:14px;
+  padding:7px 10px;
+  border:1px solid rgba(122,31,61,.16);
+  background:rgba(15,23,42,.03);
+  font-size:.78rem;
+  cursor:pointer;
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+  display:flex;
+  align-items:center;
+}
+
+.month-ev:hover{transform:translateY(-1px);}
+
+@media (max-width: 991px){
+  .month-body{grid-auto-rows:minmax(92px, auto);}
+  .month-head div{padding:8px 6px;font-size:.72rem;}
+  .month-cell{min-height:92px;padding:8px;}
+  .month-day{width:26px;height:26px;font-size:.86rem;}
+}
+/* -------------------- Mobile-first: Agenda do Usuário (sem scroll lateral) -------------------- */
+html, body { overflow-x: hidden; }
+
+.user-agenda .admin-shell,
+.user-agenda .main,
+.user-agenda .calendar-shell,
+.user-agenda .week-day-shell,
+.user-agenda .month-shell { min-width: 0; }
+
+@media (max-width: 991px) {
+  /* IMPORTANTE:
+     A agenda agora usa a mesma sidebar/hambúrguer das outras telas.
+     Não esconda a sidebar no mobile — ela é controlada por .sidebar.open (style.css). */
+  .user-agenda .sidebar { display: block !important; }
+  .user-agenda .main { padding: 12px; }
+
+  /* (mantido o layout limpo no mobile; topbar já existe no shell padrão) */
+
+  /* Força grid em 1 coluna e impede overflow */
+  .user-agenda .cal-header { grid-template-columns: 56px 1fr !important; }
+  .user-agenda .calendar-shell { grid-template-columns: 56px 1fr !important; }
+  .user-agenda .days-grid { grid-template-columns: 1fr !important; }
+
+  /* Área rolável vertical (não horizontal) */
+  .user-agenda #weekDayShell { overflow-x: hidden; }
+  .user-agenda .days-grid { overflow-x: hidden; }
+
+  /* Cards maiores para toque */
+  .user-agenda .event-card { padding: 10px 12px; border-radius: 16px; }
+  .user-agenda .event-title { font-size: .92rem; }
+}
+
+/* Dot padrão (usado em mês/listas) */
+.dot { width: 10px; height: 10px; border-radius: 999px; display: inline-block; }
+
+
+/* --- User agenda: week strip (mobile) --- */
+.week-strip{display:flex;gap:.5rem;overflow-x:auto;padding:.5rem .25rem;margin-top:.25rem;scrollbar-width:none;}
+.week-strip::-webkit-scrollbar{display:none;}
+.week-strip .wday{flex:0 0 auto;border:1px solid rgba(0,0,0,.08);background:#fff;border-radius:14px;padding:.5rem .65rem;min-width:64px;text-align:center;box-shadow:0 6px 18px rgba(0,0,0,.06);}
+.week-strip .wday .dow{font-size:.75rem;color:#6b7280;text-transform:capitalize;line-height:1;}
+.week-strip .wday .num{font-weight:800;font-size:1rem;line-height:1.1;}
+.week-strip .wday.active{border-color: rgba(122,31,61,.35);box-shadow:0 10px 24px rgba(122,31,61,.14);}
+.week-strip .wday.active .num{color:#7a1f3d;}
+
+@media (max-width: 991px){
+  body.user-agenda{overflow-x:hidden;}
+  body.user-agenda .admin-shell{overflow-x:hidden;}
+  body.user-agenda .calendar-shell{overflow-x:hidden;}
+  body.user-agenda .days-grid{overflow-x:hidden;}
+}
+
+
+/* --- Month view improvements (Google-like) --- */
+.month-cell{background:rgba(255,255,255,.55); transition: background .15s ease, box-shadow .15s ease, transform .15s ease;}
+.month-cell:hover{background:rgba(255,255,255,.82);}
+.month-top{display:flex; align-items:center; justify-content:space-between; gap:8px;}
+.month-day{display:inline-flex; align-items:center; justify-content:center; width:28px; height:28px; border-radius:999px;}
+.month-cell.is-today .month-day{background: rgba(122,31,61,.12); color: var(--accent);}
+.month-cell.selected{box-shadow: inset 0 0 0 2px rgba(122,31,61,.35); background: rgba(255,255,255,.90);}
+.month-spacer{display:inline-block; width:28px; height:28px;}
+.month-events{min-width:0;}
+.month-ev{display:flex; align-items:center; gap:8px; width:100%; text-align:left; background:rgba(15,23,42,.03); border:1px solid rgba(15,23,42,.08);}
+.month-ev .txt{min-width:0;}
+.month-more{border:0; background:transparent; color:rgba(15,23,42,.6); font-weight:700; font-size:.78rem; padding:4px 2px; text-align:left;}
+.month-more:hover{color:var(--wine); text-decoration:underline;}
+.month-events.compact .month-ev{padding:6px 8px; border-radius:14px;}
+.month-events.compact .month-ev .dot{width:8px; height:8px;}
+.month-events.compact .month-ev .txt{font-size:.78rem;}
+@media (max-width: 991px){
+  .month-cell{min-height:92px; padding:8px;}
+  .month-head div, .month-hcell{padding:8px 6px; font-size:.72rem;}
+  .month-events{gap:6px;}
+  .month-ev{padding:6px 8px;}
+}
+@media (max-width: 420px){
+  .month-cell{min-height:86px; padding:7px;}
+  .month-day{width:26px;height:26px;}
+  .month-events.compact .month-ev .txt{font-size:.76rem;}
+}
+
+
+/* ---------- Modal (Evento / Detalhes) em largura total ---------- */
+.modal-event-dialog{
+  max-width: 100% !important;
+  width: calc(100vw - 2rem) !important;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (min-width: 992px){
+  .modal-event-dialog{
+    width: calc(100vw - 4rem) !important; /* quase tela cheia no desktop */
+  }
+}
+
+.modal-event-dialog .modal-content{
+  border-radius: 22px;
+}
+
+
+
+/* ---------- Week view: mostrar ~5 dias e permitir scroll horizontal ---------- */
+:root { --day-col-min: 240px; } /* ajuste fino: maior = menos dias visíveis */
+
+@media (min-width: 992px){
+  /* scroll horizontal apenas no desktop/tablet grande */
+  #weekDayShell{ overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  #weekDayShell::-webkit-scrollbar{ height: 10px; }
+  #weekDayShell::-webkit-scrollbar-thumb{ background: rgba(15,23,42,.18); border-radius: 999px; }
+  #weekDayShell::-webkit-scrollbar-track{ background: rgba(15,23,42,.06); border-radius: 999px; }
+
+  /* manter os cantos arredondados sem cortar os dias */
+  .cal-header{ overflow: visible; }
+  .calendar-shell{ overflow: visible; }
+
+  /* força largura total do grid (7 dias) => quando não couber, aparece scroll */
+  .cal-header, .calendar-shell{
+    min-width: calc(70px + (var(--day-col-min) * 7));
+  }
+
+  .cal-header .days,
+  .days-grid{
+    grid-template-columns: repeat(7, minmax(var(--day-col-min), 1fr));
+  }
+}
+
+
+/* Month columns selector */
+.month-cols-select{max-width:140px;}
+@media (max-width: 576px){.month-cols-select{max-width:120px;}}
+
+
+/* ===== User: Central do Dia ===== */
+.dash-card{border-radius:18px; box-shadow:0 10px 30px rgba(16,24,40,.06);} 
+.dash-ico{width:28px;height:28px;opacity:.9}
+.btn-wine{background:var(--wine,#7a1f3d);border-color:var(--wine,#7a1f3d);color:#fff}
+.btn-wine:hover{filter:brightness(.95);color:#fff}
+
+
+/* ========== Notifications ========== */
+.notif-item { border-radius: 16px; overflow: hidden; }
+.notif-item.is-read { opacity: .75; }
+.notif-dot { width: 10px; height: 10px; border-radius: 999px; margin-top: 6px; background: rgba(140, 30, 60, .9); box-shadow: 0 0 0 4px rgba(140,30,60,.12); flex: 0 0 auto; }
+.notif-dot.read { background: rgba(120,120,120,.5); box-shadow: 0 0 0 4px rgba(120,120,120,.12); }
+.badge-soft-success { background: rgba(25,135,84,.12); color: #198754; border: 1px solid rgba(25,135,84,.18); }
+.badge-soft-warning { background: rgba(255,193,7,.14); color: #b58100; border: 1px solid rgba(255,193,7,.22); }
+.badge-soft-danger  { background: rgba(220,53,69,.12); color: #dc3545; border: 1px solid rgba(220,53,69,.18); }
+.badge-soft-primary { background: rgba(13,110,253,.12); color: #0d6efd; border: 1px solid rgba(13,110,253,.18); }
+.badge-soft-info    { background: rgba(13,202,240,.14); color: #087990; border: 1px solid rgba(13,202,240,.22); }
+.badge-soft-secondary { background: rgba(108,117,125,.12); color: #6c757d; border: 1px solid rgba(108,117,125,.18); }
+
+
+
+/* ===== User Agenda Customization (KPIs/Filtros) ===== */
+.mh-collapsed { display: none !important; }
+
+.mh-customize-bar .btn.active {
+  border-color: rgba(139, 0, 60, .35);
+  box-shadow: 0 0 0 .2rem rgba(139, 0, 60, .10);
+}
+
+@media (max-width: 991px) {
+  /* KPIs viram "carrossel" horizontal */
+  #kpiSection .row.g-3 {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: .25rem;
+    scroll-snap-type: x mandatory;
+  }
+  #kpiSection .row.g-3 > [class*="col-"] {
+    min-width: 84%;
+    scroll-snap-align: start;
+  }
+
+  /* Filtros mais compactos */
+  #filtersSection .row.g-2 > [class*="col-"] {
+    margin-top: .25rem;
+  }
+}
+
+
+/* ===== User custom sections ===== */
+.mh-collapsed{display:none !important;}
+@media (max-width: 768px){
+  #kpiSection{overflow-x:auto; white-space:nowrap; padding-bottom: 6px;}
+  #kpiSection .col-12.col-md-6.col-xl-3{display:inline-block; width: 85%; max-width: 340px; vertical-align: top;}
+}
+
+/* ===== Modal (custom) ===== */
+.mh-modal-overlay{
+  position:fixed; inset:0; background:rgba(17,17,17,.55);
+  display:flex; align-items:center; justify-content:center;
+  padding:14px; z-index:1200;
+}
+.mh-modal-card{
+  width:min(920px, 100%);
+  max-height: calc(100vh - 28px);
+  background:#fff;
+  border-radius:18px;
+  box-shadow: 0 20px 60px rgba(0,0,0,.25);
+  overflow:hidden;
+}
+.mh-modal-header{
+  padding:14px 16px;
+  border-bottom:1px solid rgba(0,0,0,.08);
+  display:flex; align-items:center; justify-content:space-between; gap:12px;
+}
+.mh-modal-body{
+  padding:14px 16px;
+  overflow:auto;
+  max-height: calc(100vh - 120px);
+}
+.mh-notif-list{display:flex; flex-direction:column; gap:10px;}
+.mh-notif-item{
+  border:1px solid rgba(0,0,0,.08);
+  border-radius:14px;
+  padding:12px 12px;
+  background:#fff;
+}
+.mh-notif-item.unread{border-color: rgba(145, 19, 44, .35); box-shadow: 0 8px 22px rgba(145, 19, 44, .08);}
+.mh-notif-title{font-weight:600;}
+.mh-notif-meta{font-size:12px; color:#6c757d;}
+
+
+
+/* === Maximum Help integration: ensure mobile sidebar overlays content and stays clickable === */
+@media (max-width: 992px){
+  body.user-agenda .sidebar,
+  body.admin-agenda .sidebar{
+    z-index: 1201 !important;
+  }
+}
+/* Hide chat FAB while mobile sidebar is open */
+body.mobile-sidebar-open #mhChatFab{ display:none !important; }

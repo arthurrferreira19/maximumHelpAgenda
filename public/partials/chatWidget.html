@@ -1,0 +1,174 @@
+<!-- Maximum Help - Chat Widget (partial) -->
+<button id="mhChatFab" class="mh-chat-fab" type="button" aria-label="Abrir chat">
+  <span class="mh-chat-fab-ico" aria-hidden="true"><i data-lucide="messages-square" class="ico"></i></span>
+  <span id="mhChatBadge" class="mh-chat-badge d-none">0</span>
+</button>
+
+<div id="mhChatModal" class="mh-chat-modal" aria-hidden="true">
+  <div class="mh-chat-card">
+    <div class="mh-chat-top">
+      <div class="mh-chat-title">
+        <div class="mh-chat-mark"></div>
+        <div>
+          <div class="mh-chat-name">Maximum Chat</div>
+          <div class="mh-chat-sub">Mensagens em tempo real</div>
+        </div>
+      </div>
+      <div class="mh-chat-actions">
+        <button class="btn btn-sm btn-outline-secondary d-lg-none" id="mhChatToggleList" type="button" title="Conversas">
+          <i data-lucide="inbox" class="ico"></i>
+          Conversas
+        </button>
+        <button class="btn btn-sm btn-outline-secondary" id="mhChatNewGroup" type="button">
+          <i data-lucide="users" class="ico"></i>
+          Novo grupo
+        </button>
+        <button class="btn btn-sm btn-outline-secondary" id="mhChatClose" type="button" aria-label="Fechar">
+          <i data-lucide="x" class="ico"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="mh-chat-body">
+      <aside class="mh-chat-left">
+        <div class="mh-chat-search">
+          <i data-lucide="search" class="ico"></i>
+          <input id="mhChatSearch" class="form-control" placeholder="Buscar pessoas ou conversas" />
+        </div>
+
+        <div class="mh-chat-section">
+          <div class="mh-chat-section-title">Conversas</div>
+          <div id="mhChatConversations" class="mh-chat-conv-list"></div>
+        </div>
+
+        <div class="mh-chat-section mt-3">
+          <div class="mh-chat-section-title">Pessoas</div>
+          <div id="mhChatPeople" class="mh-chat-conv-list"></div>
+        </div>
+      </aside>
+
+      <main class="mh-chat-right">
+        <div id="mhChatEmpty" class="mh-chat-empty">
+          <div class="mh-chat-empty-ico"><i data-lucide="message-circle" class="ico"></i></div>
+          <div class="mh-chat-empty-title">Abra uma conversa</div>
+          <div class="mh-chat-empty-sub">Busque alguém no campo acima para iniciar.</div>
+        </div>
+
+        <div id="mhChatThread" class="mh-chat-thread d-none">
+          <div class="mh-chat-thread-head">
+            <button class="btn btn-sm btn-outline-secondary d-lg-none me-2" id="mhChatBackToList" type="button" title="Voltar">
+              <i data-lucide="chevron-left" class="ico"></i>
+            </button>
+            <div>
+              <div id="mhChatThreadTitle" class="mh-chat-thread-title">Conversa</div>
+              <div id="mhChatThreadMeta" class="mh-chat-thread-meta">—</div>
+            </div>
+            <div class="mh-chat-thread-tools">
+              <button class="btn btn-sm btn-outline-secondary" id="mhChatAttachTicket" type="button" title="Anexar chamado">
+                <i data-lucide="ticket" class="ico"></i>
+              </button>
+              <button class="btn btn-sm btn-outline-secondary" id="mhChatMarkRead" type="button" title="Marcar como lido">
+                <i data-lucide="check-check" class="ico"></i>
+              </button>
+            </div>
+          </div>
+
+          <div id="mhChatMessages" class="mh-chat-messages"></div>
+
+          <div id="mhChatReplyBar" class="mh-chat-reply d-none">
+            <div class="mh-chat-reply-left">
+              <div class="mh-chat-reply-title">Respondendo</div>
+              <div id="mhChatReplyText" class="mh-chat-reply-text"></div>
+            </div>
+            <button class="btn btn-sm btn-outline-secondary" id="mhChatCancelReply" type="button">
+              <i data-lucide="x" class="ico"></i>
+            </button>
+          </div>
+
+          <form id="mhChatComposer" class="mh-chat-composer">
+            <label class="mh-chat-attach" title="Anexar">
+              <input id="mhChatFiles" type="file" multiple />
+              <i data-lucide="paperclip" class="ico"></i>
+            </label>
+            <input id="mhChatText" class="form-control" placeholder="Digite uma mensagem…" autocomplete="off" />
+            <button class="btn btn-mh" type="submit">
+              <i data-lucide="send" class="ico"></i>
+              Enviar
+            </button>
+          </form>
+          <div id="mhChatComposerHint" class="mh-chat-hint">Dica: passe o mouse na mensagem para reagir ou responder.</div>
+        </div>
+      </main>
+    </div>
+  </div>
+</div>
+
+<!-- Toasts (notificações de novas mensagens) -->
+<div id="mhChatToasts" class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 2200;"></div>
+
+<!-- Group modal -->
+<div class="modal fade" id="mhChatGroupModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Novo grupo</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label class="form-label">Nome do grupo</label>
+            <input id="mhChatGroupName" class="form-control" placeholder="Ex.: Suporte - Plantão" />
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Buscar membros</label>
+            <input id="mhChatGroupSearch" class="form-control" placeholder="Nome ou e-mail" />
+          </div>
+          <div class="col-12">
+            <div class="small text-muted mb-2">Selecione membros para adicionar ao grupo.</div>
+            <div id="mhChatGroupUsers" class="mh-chat-group-users"></div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-mh" id="mhChatCreateGroupBtn">Criar grupo</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Ticket attach modal -->
+<div class="modal fade" id="mhChatTicketModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Anexar chamado</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row g-3">
+          <div class="col-md-7">
+            <label class="form-label">Buscar</label>
+            <input id="mhChatTicketSearch" class="form-control" placeholder="Digite título, status ou prioridade" />
+            <div class="form-text">Dica: você pode buscar por palavras do título.</div>
+          </div>
+          <div class="col-md-5">
+            <label class="form-label">Apenas</label>
+            <select id="mhChatTicketScope" class="form-select">
+              <option value="mine" selected>Meus chamados</option>
+              <option value="all">Todos (admin)</option>
+            </select>
+          </div>
+          <div class="col-12">
+            <div class="small text-muted mb-2">Selecione um chamado para anexar à conversa.</div>
+            <div id="mhChatTicketList" class="mh-chat-ticket-list"></div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
