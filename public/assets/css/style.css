@@ -390,7 +390,7 @@ body {
 .mh-chat-fab {
   position: fixed;
   right: 18px;
-  bottom: 18px;
+  bottom: 90px;
   z-index: 1200;
   width: 56px;
   height: 56px;
@@ -2746,4 +2746,37 @@ body.mobile-sidebar-open #mhChatFab {
 .mh-page canvas,
 .mh-page svg{
   max-width: 100%;
+}
+
+
+/* Chat above install button */
+.mh-chat-fab{
+  bottom: 90px;
+}
+
+@media (max-width:768px){
+  .mh-chat-fab{
+    bottom: 90px;
+  }
+}
+
+
+/* ===== Fix spacing between Chat and Install buttons ===== */
+.pwa-install-btn{
+  bottom: 16px !important;
+}
+
+.mh-chat-fab{
+  bottom: 92px !important; /* 56px button + spacing */
+}
+
+/* mobile adjustment */
+@media (max-width:768px){
+  .pwa-install-btn{
+    bottom: 14px !important;
+  }
+
+  .mh-chat-fab{
+    bottom: 100px !important;
+  }
 }
