@@ -2533,3 +2533,84 @@ body.mobile-sidebar-open #mhChatFab {
     touch-action: none;
   }
 }
+
+/* ===== PWA Install Button ===== */
+.pwa-install-btn{
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 1200;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(31,36,48,0.12);
+  background: rgba(255,255,255,0.96);
+  box-shadow: 0 14px 30px rgba(18,24,40,0.12);
+  color: var(--text, #1f2430);
+  font-weight: 700;
+  letter-spacing: .2px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.pwa-install-btn:hover{ transform: translateY(-1px); }
+.pwa-install-btn:active{ transform: translateY(0); }
+
+.pwa-install-ic{
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  background: rgba(123,30,58,0.10);
+  color: var(--accent, #7b1e3a);
+}
+
+.pwa-install-tx{
+  font-size: 14px;
+}
+
+@media (max-width: 576px){
+  .pwa-install-btn{
+    right: 12px;
+    bottom: 12px;
+    padding: 11px 13px;
+  }
+}
+
+
+/* ===== Mobile: no horizontal scroll ===== */
+@media (max-width: 768px){
+  html, body{
+    overflow-x: hidden !important;
+    width: 100%;
+  }
+
+  .admin-shell,
+  .main,
+  .container,
+  .container-fluid{
+    overflow-x: hidden !important;
+    max-width: 100%;
+  }
+
+  /* ensure flex children can shrink (prevents lateral scroll) */
+  .admin-shell > *,
+  .main *{
+    min-width: 0;
+  }
+
+  /* charts/tables can overflow */
+  .table-responsive,
+  canvas,
+  svg{
+    max-width: 100% !important;
+  }
+
+  img, video{
+    max-width: 100%;
+    height: auto;
+  }
+}
