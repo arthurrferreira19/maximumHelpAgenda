@@ -460,7 +460,8 @@ body {
 
 .mh-chat-card {
   /* modal ocupa 100% de altura e deixa 15% livre à esquerda */
-  width: calc(100vw - 15vw);
+  width: 85vw;
+  max-width: 100%;
   height: 100vh;
   min-height: 0;
   background: rgba(255, 255, 255, 0.92);
@@ -473,7 +474,8 @@ body {
 
 @media (max-width: 992px) {
   .mh-chat-card {
-    width: 100vw;
+    width: 100%;
+    max-width: 100%;
     border-radius: 0;
   }
 
@@ -2613,4 +2615,135 @@ body.mobile-sidebar-open #mhChatFab {
     max-width: 100%;
     height: auto;
   }
+}
+
+
+/* ===== Mobile: hard stop horizontal scroll (User tabs) ===== */
+@media (max-width: 768px){
+  body.user-dashboard,
+  body.user-chamados,
+  body.user-agenda,
+  body.user-login{
+    overflow-x: hidden !important;
+  }
+
+  .topbar,
+  .main,
+  .content,
+  .page,
+  .card,
+  .row,
+  [class*="col-"]{
+    max-width: 100% !important;
+  }
+
+  /* If any element is wider than viewport, clip it */
+  .main{ overflow-x: hidden !important; }
+}
+
+/* ===== PWA Install Prompt Modal (mobile) ===== */
+.pwa-install-backdrop{
+  position: fixed;
+  inset: 0;
+  background: rgba(16,18,24,.35);
+  z-index: 1250;
+  display: none;
+}
+
+.pwa-install-sheet{
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  z-index: 1260;
+  display: none;
+  padding: 14px;
+}
+
+.pwa-install-card{
+  width: min(520px, calc(100vw - 28px));
+  margin: 0 auto;
+  background: rgba(255,255,255,.98);
+  border: 1px solid rgba(31,36,48,.12);
+  border-radius: 18px;
+  box-shadow: 0 30px 90px rgba(16,18,24,.25);
+  overflow: hidden;
+}
+
+.pwa-install-card .hd{
+  padding: 14px 14px 8px;
+  display:flex; align-items:flex-start; gap:10px;
+}
+.pwa-install-badge{
+  width: 40px; height: 40px;
+  border-radius: 12px;
+  display:grid; place-items:center;
+  background: rgba(123,30,58,.12);
+  color: var(--accent, #7b1e3a);
+  font-weight: 900;
+}
+.pwa-install-card .tx{
+  flex:1;
+}
+.pwa-install-card .title{
+  font-weight: 900;
+  margin: 0;
+  font-size: 14px;
+}
+.pwa-install-card .desc{
+  margin: 4px 0 0;
+  color: var(--muted, #6b7280);
+  font-size: 13px;
+  line-height: 1.35;
+}
+.pwa-install-actions{
+  display:flex;
+  gap:10px;
+  padding: 12px 14px 14px;
+}
+.pwa-btn{
+  flex:1;
+  border-radius: 14px;
+  padding: 12px 12px;
+  border: 1px solid rgba(31,36,48,.12);
+  background: #fff;
+  font-weight: 800;
+}
+.pwa-btn.primary{
+  background: var(--accent, #7b1e3a);
+  color: #fff;
+  border-color: transparent;
+}
+.pwa-btn.ghost{
+  background: rgba(31,36,48,.04);
+}
+
+@media (min-width: 769px){
+  .pwa-install-backdrop, .pwa-install-sheet{ display:none !important; }
+}
+
+
+/* ===== Consistent page width (Dashboard/Chamados) ===== */
+/* Agenda pages already feel right; reuse same max width for dashboard/chamados */
+:root{
+  --page-max: 1200px;
+}
+
+/* main content wrapper */
+.mh-page{
+  width: 100%;
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding-left: 14px;
+  padding-right: 14px;
+}
+
+/* keep same rhythm as agenda */
+.mh-page .card,
+.mh-page .mh-card{
+  border-radius: 18px;
+}
+
+/* prevent wide charts from pushing layout */
+.mh-page canvas,
+.mh-page svg{
+  max-width: 100%;
 }

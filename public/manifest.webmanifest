@@ -2,7 +2,7 @@
   "name": "Maximum Help",
   "short_name": "MaxHelp",
   "description": "Dashboard, Chamados e Agenda",
-  "start_url": "/admin/login.html",
+  "start_url": "/user/login.html",
   "scope": "/",
   "display": "standalone",
   "background_color": "#ffffff",
@@ -17,6 +17,44 @@
       "src": "/assets/icons/icon-512.png",
       "sizes": "512x512",
       "type": "image/png"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Dashboard",
+      "short_name": "Dashboard",
+      "url": "/user/dashboardUser.html",
+      "icons": [
+        {
+          "src": "/assets/icons/icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Chamados",
+      "short_name": "Chamados",
+      "url": "/user/chamadosUser.html",
+      "icons": [
+        {
+          "src": "/assets/icons/icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Agenda",
+      "short_name": "Agenda",
+      "url": "/user/agendaUser.html",
+      "icons": [
+        {
+          "src": "/assets/icons/icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
     }
   ]
 }

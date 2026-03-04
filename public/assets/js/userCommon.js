@@ -86,6 +86,13 @@ function userMountSidebar(activeKey = "dashboard") {
 
   document.getElementById("btnLogoutUser").addEventListener("click", () => {
     API.clearAuth();
+
+  const _btnInstall = document.getElementById("btnInstallSidebar");
+  if(_btnInstall){
+    _btnInstall.addEventListener("click", () => {
+      // handled by /assets/js/pwa.js when available
+    });
+  }
     window.location.href = "/user/login.html";
   });
 
