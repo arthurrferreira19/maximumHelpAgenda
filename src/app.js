@@ -70,6 +70,12 @@ const fs = require("fs");
 fs.mkdirSync(uploadsRoot, { recursive: true });
 app.use("/uploads", express.static(uploadsRoot));
 
+// Allow /public/* paths (some hosts prefix URLs)
+app.use("/public", express.static(publicPath));
+
+// Default entry
+app.get("/", (req, res) => res.redirect("/user/login.html"));
+
 /** (Opcional) silenciar log do Chrome DevTools */
 app.get("/.well-known/appspecific/com.chrome.devtools.json", (req, res) => res.status(204).end());
 
